@@ -1,11 +1,10 @@
 package Handler;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.Objects;
+import java.util.List;
 
 import Handler.annotations.DefaultConstructor;
 import Handler.annotations.Single;
@@ -40,7 +39,7 @@ public class Singleton {
 			}
 
 			Class<?>[] parameterTypes = defaultConstructor.getParameterTypes();
-			LinkedList<Object> list = new LinkedList<Object>();
+			List<Object> list = new LinkedList<Object>();
 			
 			for(Class cla : parameterTypes){
 				list.add(getInstance(cla));
@@ -51,7 +50,7 @@ public class Singleton {
 			hm.put(c, t);
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | SecurityException e) {
-			System.out.println(e.toString() + e.getMessage() + c.toGenericString());
+			System.out.println("Singleton " + e.toString() + e.getMessage() + c.toGenericString());
 		}
 		return t;
 	}
@@ -64,8 +63,4 @@ public class Singleton {
 		return o==(null) ? createNewInstance(c) : c.cast(o);
 	}
 	
-	@Override
-	public int hashCode(){
-		return Objects.hash(hm);
-	}
 }

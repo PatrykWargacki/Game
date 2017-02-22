@@ -33,7 +33,41 @@ public class FrameRate {
 	}
 
 	@Override
-	public int hashCode(){
-		return Objects.hash(lastTime, delta, frameCount, fps);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (delta ^ (delta >>> 32));
+		result = prime * result + fps;
+		result = prime * result + frameCount;
+		result = prime * result + (int) (lastTime ^ (lastTime >>> 32));
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof FrameRate)) {
+			return false;
+		}
+		FrameRate other = (FrameRate) obj;
+		if (delta != other.delta) {
+			return false;
+		}
+		if (fps != other.fps) {
+			return false;
+		}
+		if (frameCount != other.frameCount) {
+			return false;
+		}
+		if (lastTime != other.lastTime) {
+			return false;
+		}
+		return true;
+	}
+
 }

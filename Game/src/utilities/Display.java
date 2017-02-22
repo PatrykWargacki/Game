@@ -49,7 +49,9 @@ public class Display {
 	
 	// i should make an annotation for DI for Singleton job
 	public void toFullScreenMode(){
+		System.out.println("weszlo");
 		if(graphicsDevice.isFullScreenSupported()){
+			System.out.println("weszlo2");
 			Singleton.getInstance(MyJFrame.class).setUndecorated(true);
 			Singleton.getInstance(MyJFrame.class).setIgnoreRepaint(true);
 			graphicsDevice.setFullScreenWindow(Singleton.getInstance(MyJFrame.class));
@@ -61,9 +63,35 @@ public class Display {
 		graphicsDevice.setDisplayMode(displayMode);
 		graphicsDevice.setFullScreenWindow(null);
 	}
-	
+
 	@Override
-	public int hashCode(){
-		return Objects.hash(displayMode, graphicsDevice);
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((displayMode == null) ? 0 : displayMode.hashCode());
+		return result;
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Display)) {
+			return false;
+		}
+		Display other = (Display) obj;
+		if (displayMode == null) {
+			if (other.displayMode != null) {
+				return false;
+			}
+		} else if (!displayMode.equals(other.displayMode)) {
+			return false;
+		}
+		return true;
+	}
+	
 }
